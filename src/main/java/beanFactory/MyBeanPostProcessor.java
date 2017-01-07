@@ -42,10 +42,11 @@ public class MyBeanPostProcessor implements InstantiationAwareBeanPostProcessor 
     public boolean postProcessAfterInstantiation(Object bean, String beanName) throws BeansException {
         if(bean instanceof BeanTest) {
             BeanTest beanTest = (BeanTest)bean;
+            beanTest.setAddProperty("postProcessAfterInstantiationAddProperty");
             System.out.println("MyBeanPostProcessor.postProcessAfterInstantiation:beanTest.addProperty " + beanTest.getAddProperty()
                     + " ,beanAutowiredTest=" + beanTest.getBeanAutowiredTest());
         }
-        return true;
+        return true; // false表示不再注入属性，postProcessPropertyValues也就不会调用了，true表示正常注入属性
     }
 
     public PropertyValues postProcessPropertyValues(PropertyValues pvs, PropertyDescriptor[] pds, Object bean,
