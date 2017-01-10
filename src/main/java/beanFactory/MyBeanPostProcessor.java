@@ -42,7 +42,7 @@ public class MyBeanPostProcessor implements InstantiationAwareBeanPostProcessor 
     public boolean postProcessAfterInstantiation(Object bean, String beanName) throws BeansException {
         if(bean instanceof BeanTest) {
             BeanTest beanTest = (BeanTest)bean;
-            beanTest.setAddProperty("postProcessAfterInstantiationAddProperty");
+//            beanTest.setAddProperty("postProcessAfterInstantiationAddProperty");
             System.out.println("MyBeanPostProcessor.postProcessAfterInstantiation:beanTest.addProperty " + beanTest.getAddProperty()
                     + " ,beanAutowiredTest=" + beanTest.getBeanAutowiredTest());
         }
@@ -56,6 +56,8 @@ public class MyBeanPostProcessor implements InstantiationAwareBeanPostProcessor 
             System.out.println("MyBeanPostProcessor.postProcessPropertyValues:beanTest.addProperty " + beanTest.getAddProperty()
                     + " ,beanAutowiredTest=" + beanTest.getBeanAutowiredTest());
             pvs.getPropertyValue("addProperty").setConvertedValue("addConvertedPropertyValue");
+            System.out.println(pvs.getPropertyValues().toString());
+//            pvs.getPropertyValue("beanAutowiredTest").setConvertedValue(new BeanAutowiredTest2());
         }
         return pvs;
     }
