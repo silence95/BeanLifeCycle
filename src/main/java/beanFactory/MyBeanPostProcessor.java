@@ -6,6 +6,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.PropertyValues;
 import org.springframework.beans.factory.config.InstantiationAwareBeanPostProcessor;
 
+import bean.BeanAutowiredTest;
 import bean.BeanTest;
 
 public class MyBeanPostProcessor implements InstantiationAwareBeanPostProcessor {
@@ -20,6 +21,8 @@ public class MyBeanPostProcessor implements InstantiationAwareBeanPostProcessor 
             BeanTest beanTest = (BeanTest)bean;
             System.out.println("MyBeanPostProcessor.postProcessBeforeInitialization:beanTest.addProperty " + beanTest.getAddProperty()
                     + " ,beanAutowiredTest=" + beanTest.getBeanAutowiredTest());
+            beanTest.setAddProperty("addPostProcessBeforeInitialization");
+            beanTest.setBeanAutowiredTest(new BeanAutowiredTest());
         }
         return bean;
     }
@@ -55,7 +58,7 @@ public class MyBeanPostProcessor implements InstantiationAwareBeanPostProcessor 
             BeanTest beanTest = (BeanTest)bean;
             System.out.println("MyBeanPostProcessor.postProcessPropertyValues:beanTest.addProperty " + beanTest.getAddProperty()
                     + " ,beanAutowiredTest=" + beanTest.getBeanAutowiredTest());
-            pvs.getPropertyValue("addProperty").setConvertedValue("addConvertedPropertyValue");
+            pvs.getPropertyValue("addProperty").setConvertedValue("addPostProcessPropertyValues");
             System.out.println(pvs.getPropertyValues().toString());
 //            pvs.getPropertyValue("beanAutowiredTest").setConvertedValue(new BeanAutowiredTest2());
         }
